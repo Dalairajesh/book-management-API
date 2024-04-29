@@ -58,9 +58,11 @@ const userOperation = {
             })
          }
 
+         const userDetails = await userModel.findOne({email:email})
 
          result.password = undefined;
-          const jsontoken =await jwt.sign({result : result}, process.env.JWT_SECRET,{expiresIn:"1h"})
+         console.log("resultvalues",userDetails)
+          const jsontoken =await jwt.sign({result : userDetails}, process.env.JWT_SECRET,{expiresIn:"1h"})
            return res.json({
                success:200,
                message:"login successfully",

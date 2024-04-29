@@ -83,7 +83,7 @@ const bookOperation = {
             const bookSchema = Joi.object({
                 title:Joi.string().required(),
                 author:Joi.string().required(),
-                publicationYear:Joi.string().required()
+                publicationYear:Joi.number().required()
             })
             const { error,value } = bookSchema.validate(req.body,{abortEarly:false})
             if(error){
