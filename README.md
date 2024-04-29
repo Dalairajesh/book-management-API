@@ -18,19 +18,28 @@ JWT_SECRET=mention secret key
 ```bash
 node index.js
 ```
-#API URL
-####USER REGISTRATION AND LOGIN API
-Create User API
-#####http://localhost:7000/api/v1/user/createUser
-Login API
-#####http://localhost:7000/api/v1/user/loginUser
+# API URLs
 
-####BOOK CRUD API
-Book create API
-#####http://localhost:7000/api/v1/book/createBook
-Get All Book and Filter API
-#####http://localhost:7000/api/v1/book/getAllBook?limit=10&skip=0&author=rahul&publicationYear=2024
-Update Book API
-#####http://localhost:7000/api/v1/book/updateBook/662d27599b18a4ca643de873
-Delete API
-#####http://localhost:7000/api/v1/book/deleteBook/662d27599b18a4ca643de873
+## USER REGISTRATION AND LOGIN API
+
+### Create User API
+- Endpoint: `POST` http://localhost:7000/api/v1/user/createUser
+
+### Login API
+- Endpoint: `POST` http://localhost:7000/api/v1/user/loginUser
+
+---
+
+## BOOK CRUD API
+
+### Book Create API
+- Endpoint: `POST` http://localhost:7000/api/v1/book/createBook
+
+### Get All Book and Filter API
+- Endpoint: `GET` http://localhost:7000/api/v1/book/getAllBook?limit=10&skip=0&author=rahul&publicationYear=2024
+
+### Update Book API
+- Endpoint: `PUT` http://localhost:7000/api/v1/book/updateBook/662d27599b18a4ca643de873
+
+### Delete API
+- Endpoint: `DELETE` http://localhost:7000/api/v1/book/deleteBook/662d27599b18a4ca643de873
