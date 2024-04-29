@@ -11,7 +11,7 @@ const bookOperation = {
             const bookSchema = Joi.object({
                 title:Joi.string().required(),
                 author:Joi.string().required(),
-                publicationYear:Joi.string().required()
+                publicationYear:Joi.number().required()
             })
             const { error,value } = bookSchema.validate(req.body,{abortEarly:false})
             if(error){
@@ -47,13 +47,22 @@ const bookOperation = {
 
      getAllBook: async function(req, res){
         try {
-            let {limit , skip} = req.query;
+            let {limit , skip,author, publicationYear} = req.query;
             limit = +limit ||10;
             skip = +skip ?? 0;
     
+          let findQuery = {}
+
+          if(publicationYear) {
+            findQuery.publicationYear = publicationYear
+          }
+
+          if(author) {
+            findQuery.author = {$regex:author,$options:"i"}
+          }
             
-            const result = await bookModel.find().limit(limit).skip(skip).lean();
-            const count = await bookModel.count();
+            const result = await bookModel.find(findQuery).limit(limit).skip(skip).lean();
+            const count = await bookModel.countDocuments(findQuery);
             const page = parseInt(req.query.skip) || 1;
             res.status(200).json({
                 "data":result,
@@ -106,6 +115,15 @@ const bookOperation = {
         } catch (error) {
             res.status(500).json({ statusCode:500, error: error.message });
         }
+     },
+
+     filterByBook: async function(req, res) {
+            try {
+                const {author, publicationYear} = req.query
+
+            } catch (error) {
+                res.status(500).json({ statusCode:500, error: error.message });
+            }
      },
 
      deleteBook: async function(req, res) {
