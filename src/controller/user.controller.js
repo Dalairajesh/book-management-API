@@ -21,6 +21,14 @@ const userOperation = {
            })
         }
 
+        const findUser = await userModel.findOne({email:req.body.email}).lean()
+            if(findUser !=null){
+                res.status(409).json({
+                    "statusCode":409,
+                    msg:"User Already Exist"
+                })
+            }else{
+
         const salt = bcrypt.genSaltSync(saltRounds);
         const hash = bcrypt.hashSync(req.body.password, salt);
  
@@ -39,6 +47,7 @@ const userOperation = {
             "msg":"created successfully",
             "data":result
         })
+    }
      } catch (error) {
         res.status(500).json({ statusCode:500, error: error.message });
      }
@@ -61,7 +70,7 @@ const userOperation = {
          const userDetails = await userModel.findOne({email:email})
 
          result.password = undefined;
-         console.log("resultvalues",userDetails)
+
           const jsontoken =await jwt.sign({result : userDetails}, process.env.JWT_SECRET,{expiresIn:"1h"})
            return res.json({
                success:200,
